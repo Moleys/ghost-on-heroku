@@ -7,10 +7,7 @@ into the {body} of the default.hbs template --}}
     {{> site-header}}
 </header>
 
-<!-- Toc -->
-<aside class="toc-container">
-    <div class="toc"></div>
-</aside>
+
 
 {{!-- Everything inside the #post tags pulls data from the post --}}
 {{#post}}
@@ -107,7 +104,9 @@ into the {body} of the default.hbs template --}}
                 />
             </figure>
             {{/if}}
-
+			<aside class="toc-container">
+				<div class="toc"></div>
+			</aside>
             <section class="post-full-content">
                 <div class="post-content">
                     {{content}}
