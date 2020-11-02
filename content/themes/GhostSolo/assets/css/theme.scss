@@ -1,0 +1,334 @@
+$enable-responsive-font-sizes: true;
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "content.css";
+@import "vars.css";
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--bs-font-sans-serif);
+}
+
+a {
+    text-decoration: none;
+    color: var(--link-color);
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--link-color);
+    filter: brightness(80%);
+}
+
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.h1,
+.h2,
+.h3,
+.h4,
+h1,
+h2,
+h3,
+h4 {
+    letter-spacing: -.03em;
+}
+
+img {
+    max-width: 100%;
+}
+
+hr {
+    opacity: .15;
+}
+
+[data-theme='dark'] .form-control {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: rgba(0, 0, 0, 0.6);
+    color: var(--text-color) !important;
+}
+
+[data-theme='dark'] .form-control:focus {
+    color: var(--text-color) !important;
+}
+
+.btn {
+    font-weight: 600 !important;
+    border-color: transparent;
+}
+
+a.btn:hover {
+    filter: brightness(100%);
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: var(--button-color) !important;
+    border-color: var(--button-color) !important;
+    color: var(--button-text) !important;
+}
+
+.btn-outline-secondary {
+    border-color: var(--button-color) !important;
+    color: var(--button-color) !important;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--button-color) !important;
+    color: var(--button-text) !important;
+}
+
+.btn-secondary-inverted {
+    background-color: transparent !important;
+    border-color: var(--masthead-text) !important;
+    color: var(--masthead-text) !important;
+}
+
+a.btn-secondary-inverted:hover {
+    background-color: var(--button-text) !important;
+    border-color: var(--masthead-color) !important;
+    color: var(--masthead-color) !important;
+    text-decoration: none;
+    filter: brightness(100%);
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bg-alternative {
+    background-color: var(--alternate-background-colour) !important;
+}
+
+.text-muted,
+.text-secondary {
+    color: var(--text-color-light)!important;
+}
+
+[data-theme='light'] .d-block-light,
+[data-theme='dark'] .d-block-dark {
+    display: block !important;
+}
+
+#nav {
+    background-color: var(--masthead-color);
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    color: var(--masthead-text);
+}
+
+#nav a.navbar-brand {
+    color: var(--masthead-text);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#nav a.nav-link,
+#nav .btn-link {
+    color: var(--masthead-text);
+    font-weight: 400;
+    filter: brightness(80%);
+}
+
+#nav a.nav-link:hover,
+#nav .btn-link:hover,
+#nav a.nav-link.active {
+    filter: brightness(100%);
+    text-decoration: none;
+}
+
+#nav .navbar-toggler {
+    color: var(--masthead-text);
+    border-color: var(--masthead-text);
+    filter: brightness(60%);
+}
+
+#nav .navbar-toggler:hover,
+#nav .navbar-brand:hover {
+    filter: brightness(100%);
+    text-decoration: none;
+}
+
+.site-heading {
+    padding: calc(58px + 4vw) 3vw 6vw;
+    background-color: var(--masthead-color);
+    color: var(--masthead-text);
+    position: relative;
+    /* background: linear-gradient(165deg, var(--masthead-color) 50%, var(--background-color) 50%); */
+}
+
+.site-heading.bg-alternative {
+    color: var(--text-color);
+}
+
+.site-heading-content {
+    padding: 4vw 1rem;
+    color: var(--masthead-text);
+    z-index: 500;
+}
+
+.bg-alternative .site-heading-content {
+    color: var(--text-color);
+}
+
+.site-heading-image-container {
+    z-index: 500;
+}
+
+.site-heading-image {
+    border-radius: 50%!important;
+    border-color: var(--alternate-background-colour);
+    background-color: var(--alternate-background-colour);
+    max-height: 16vw;
+}
+
+.site-heading .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #212529;
+    opacity: .5;
+}
+
+.site-heading .btn-lg {
+    padding: .875rem 1.15rem;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    border-radius: .3125rem;
+}
+
+footer .btn-lg {
+    padding: .5rem 1rem;
+    font-size: 1.1rem;
+}
+
+footer .form-control-lg {
+    font-size: 1.1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    footer .btn-lg,
+    .site-heading .btn-lg {
+        padding: .5rem 1rem;
+        font-size: 1rem;
+    }
+    footer .form-control-lg,
+    .site-heading .form-control-lg {
+        font-size: 1rem;
+    }
+}
+
+.avatar {
+    border-radius: 50%!important;
+    width: 3rem;
+    height: 3rem;
+}
+
+.avatar-lg {
+    width: 4rem;
+    height: 4rem;
+}
+
+.avatar-xl {
+    width: 6rem;
+    height: 6rem;
+}
+
+.site-content {
+    padding-top: calc(58px + 5vw);
+    padding-bottom: 4vw;
+}
+
+.post-title {
+    font-weight: 500;
+}
+
+.featured-img {
+    max-width: 1040px;
+    width: 100%;
+    height: auto;
+}
+
+.card {
+    border-radius: 0.7rem;
+    background: var(--background-color) !important;
+}
+
+a.card.no-image {
+    background-color: var(--button-color) !important;
+    color: var(--button-text) !important;
+}
+
+a.card.no-image {
+    text-decoration: none;
+}
+
+a.card.no-image:hover {
+    background-color: var(--masthead-color) !important;
+    color: var(--masthead-text) !important;
+    transition: all 0.5s ease;
+    filter: brightness(100%);
+}
+
+.card.no-image p,
+.card.no-image h3 {
+    color: var(--button-text);
+}
+
+.card-img,
+.card-img-top {
+    border-top-left-radius: calc(0.7rem - 1px);
+    border-top-right-radius: calc(0.7rem - 1px);
+}
+
+.site-heading-content .lead {
+    font-weight: 400;
+}
+
+.post-date-2015+.post-date-2015 h3,
+.post-date-2016+.post-date-2016 h3,
+.post-date-2016+.post-date-2016 h3,
+.post-date-2017+.post-date-2017 h3,
+.post-date-2018+.post-date-2018 h3,
+.post-date-2019+.post-date-2019 h3,
+.post-date-2020+.post-date-2020 h3,
+.post-date-2021+.post-date-2021 h3,
+.post-date-2022+.post-date-2022 h3 {
+    display: none;
+}
+
+.pages-1 {
+    display: none !important;
+}
+
+
+/*  Members */
+
+form[data-members-form] .loading-text,
+form[data-members-form] .message-success,
+form[data-members-form] .message-error {
+    display: none;
+}
+
+form[data-members-form].success .message-success {
+    display: block;
+}
+
+.member-form.success .message-success {
+    display: block;
+}
+
+form[data-members-form].error .message-error {
+    display: block;
+}
+
+form[data-members-form].loading .loading-text {
+    display: block;
+}
+
+form[data-members-form].loading .text {
+    display: none;
+}

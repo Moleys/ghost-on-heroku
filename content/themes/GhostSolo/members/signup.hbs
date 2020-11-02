@@ -1,0 +1,100 @@
+{{!< ../default}}
+
+
+
+<header class="bg-alternative site-heading ">
+    <div class="container">
+
+        {{#if @member.paid}}
+        <script>window.location = '{{@site.url}}';</script>
+        {{else if @member}}
+
+        <h1 class="display-5 post-title">Choose a subscription</h1>
+        <p class="lead mb-0 mt-2">Unlock full access to {{@site.title}} and see the entire library of members-only
+            content & updates</p>
+
+        {{#if @price.monthly}}
+        {{else if @price.yearly}}
+        {{else}}
+        {{! no paid options}}
+        <script>window.location = '{{@site.url}}';</script>
+        {{/if}}
+
+
+        {{else}}
+
+        <h1 class="display-5 post-title">Subscribe</h1>
+        <p class="lead mb-0 mt-2">Enter your email to get the latest updates.</p>
+        <div class="mt-4" style="max-width: 600px;">
+            {{> "signup_small"}}
+            <p><small>Already have an account? <a href="/signin/">Sign in</a></small></p>
+        </div>
+
+        {{/if}}
+
+    </div>
+</header>
+
+
+{{#if @member}}
+
+<div class="container mt-5">
+
+
+
+    <div class="d-flex justify-content-center">
+        {{#if @price.monthly}}
+        <div class="col-md-6 col-lg-4 col-xl-3 d-flex mb-3">
+            <a href="javascript:void(0)" data-members-plan="monthly"
+                class="card card-body justify-content-between no-image">
+                <h3><span>$</span><strong>{{@price.monthly}}</strong> / month</h3>
+                <div class="flex-grow-1 mb-0 small">
+                    <ul>
+                        <li>Full access to all private posts</li>
+                        <li>Regular updates with new content</li>
+                        <li>Support independent publishing</li>
+                        <li>Simple, secure card payment</li>
+                    </ul>
+                </div>
+            </a>
+        </div>
+
+        {{/if}}
+
+        {{#if @price.yearly}}
+
+        <div class="col-md-6 col-lg-4 col-xl-3 d-flex mb-3 ml-3">
+            <a href="#" data-members-plan="Yearly" class="card card-body justify-content-between">
+                <h3><span>$</span><strong>{{@price.yearly}}</strong> / year</h3>
+                <div class="flex-grow-1 mb-0 small text-reset">
+                    <ul>
+                        <li>Full access to all private posts</li>
+                        <li>Regular updates with new content</li>
+                        <li>Support independent publishing</li>
+                        <li>Simple, secure card payment</li>
+                        <li>One easy payment instead of 12!</li>
+                    </ul>
+                </div>
+            </a>
+        </div>
+        {{/if}}
+    </div>
+
+
+<hr class="my-5" />
+</div>
+
+{{/if}}
+
+
+{{#get "posts" filter="tags:hash-pinned" as |pinned|}}
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            {{#foreach pinned}}
+            {{> "card"}}
+            {{/foreach}}
+        </div>
+    </div>
+</div>
+{{/get}}
