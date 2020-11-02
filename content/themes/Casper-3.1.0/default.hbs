@@ -13,11 +13,7 @@
 
     {{!-- Styles'n'Scripts --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
-<script src="https://cdn.jsdelivr.net/npm/@tryghost/content-api@1.4.7/umd/content-api.min.js"></script>
-<script>
-  const ghostHost = 'https://blog.lung.gq'
-  const ghostSearchApiKey = '88d12b2c7f14a1b54e8c41da84'  
-</script>
+
     {{!-- This tag outputs SEO meta+structured data and other important settings --}}
     {{ghost_head}}
 
@@ -28,8 +24,7 @@
 
         {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
         {{{body}}}
-{{!-- Search form --}}
-{{> search}}
+
         {{!-- The footer at the very bottom of the screen --}}
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
@@ -127,157 +122,7 @@
 
     {{!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. --}}
     {{{block "scripts"}}}
-<link rel="stylesheet" type="text/css" href="{{asset "built/search.css"}}" />
 
-<script>
-function formatDate(date) {
-    if (date) {
-        return new Date(date).toLocaleDateString(
-            document.documentElement.lang,
-            {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            }
-        )
-    }
-
-    return ''
-}
-
-$(document).ready(() => {
-    const $body = $('body')
-    const $openSearch = $('.js-open-search')
-    const $closeSearch = $('.js-close-search')
-    const $search = $('.js-search')
-    const $inputSearch = $('.js-input-search')
-    const $searchResults = $('.js-search-results')
-    const $searchNoResults = $('.js-no-results')
-
-    let flexIndexZh = null
-    let flexIndexEn = null
-
-    function trySearchFeature() {
-        if (typeof ghostSearchApiKey !== 'undefined' && typeof ghostHost !== 'undefined') {
-            getAllPosts(ghostHost, ghostSearchApiKey)
-        } else {
-            $openSearch.css('visibility', 'hidden')
-            $closeSearch.remove()
-            $search.remove()
-        }
-    }
-
-    function toggleScrollVertical() {
-        $body.toggleClass('no-scroll-y')
-    }
-
-    function getAllPosts(host, key) {
-        const api = new GhostContentAPI({
-            url: host,
-            key,
-            version: 'v2'
-        })
-        const allPosts = []
-        const docOption = {
-            doc: {
-                id: "id",
-                field: [
-                    "title",
-                    "html",
-                    "custom_excerpt"
-                ]
-            }
-        }
-        const flexOptionsZh = {
-            encode: false,
-            tokenize: function(str){
-                return str.replace(/[\x00-\x7F]/g, "").split("");
-            }
-        }
-
-        const flexOptionsEn = {
-            encode: 'advanced',
-            tokenize: 'forward'
-        }
-
-        api.posts.browse({
-            limit: 'all',
-            fields: 'id, title, url, published_at, custom_excerpt, html'
-        })
-            .then((posts) => {
-                for (var i = 0, len = posts.length; i < len; i++) {
-                    allPosts.push(posts[i])
-                }
-
-                //fuse = new Fuse(allPosts, fuseOptions)
-
-                flexIndexZh = new FlexSearch(Object.assign({}, flexOptionsZh, docOption))
-                flexIndexZh.add(allPosts)
-
-                flexIndexEn = new FlexSearch(Object.assign({}, flexOptionsEn, docOption))
-                flexIndexEn.add(allPosts)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-
-    }
-
-    $openSearch.click(() => {
-        $search.addClass('opened')
-        setTimeout(() => {
-            $inputSearch.focus()
-        }, 400);
-        toggleScrollVertical()
-    })
-
-    $closeSearch.click(() => {
-        $inputSearch.blur()
-        $search.removeClass('opened')
-        toggleScrollVertical()
-    })
-
-    $inputSearch.keyup(() => {
-        if ($inputSearch.val().length > 0 && flexIndexEn && flexIndexZh) {
-            const resultsZh = flexIndexZh.search($inputSearch.val())
-            const resultsEn = flexIndexEn.search($inputSearch.val())
-
-            const results = resultsZh.concat(resultsEn)
-            let htmlString = ''
-
-            if (results.length > 0) {
-                let duplicate_ids = []
-                for (var i = 0, len = results.length; i < len; i++) {
-                    if (results[i].id in duplicate_ids)
-                        continue
-                    htmlString += `
-  <article class="m-result">\
-    <a href="${results[i].url}" class="m-result__link">\
-      <h3 class="m-result__title">${results[i].title}</h3>\
-      <span class="m-result__date">${formatDate(results[i].published_at)}</span>\
-    </a>\
-  </article>`
-                    duplicate_ids.push(results[i].id)
-                }
-
-                $searchNoResults.hide()
-                $searchResults.html(htmlString)
-                $searchResults.show()
-            } else {
-                $searchResults.html('')
-                $searchResults.hide()
-                $searchNoResults.show()
-            }
-        } else {
-            $searchResults.html('')
-            $searchResults.hide()
-            $searchNoResults.hide()
-        }
-    })
-
-    trySearchFeature()
-})
-</script>
     {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
     {{ghost_foot}}
 
